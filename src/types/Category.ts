@@ -39,7 +39,7 @@ export interface Category {
 
 export interface CategoryParams {
   page?: number;
-  per_page?: number;
+  perPage?: number;
   search?: string;
   isActive?: boolean;
 }
