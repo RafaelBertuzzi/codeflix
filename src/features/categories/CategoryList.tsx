@@ -1,4 +1,4 @@
-import { Button } from "@mui/material";
+import { Button, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import { GridFilterModel } from "@mui/x-data-grid";
 import { useSnackbar } from "notistack";
@@ -17,7 +17,7 @@ export const CategoryList = () => {
   const [search, setSearch] = useState("");
   const options = { perPage, search, page };
 
-  const { data, isFetching } = useGetCategoriesQuery(options);
+  const { data, isFetching, error } = useGetCategoriesQuery(options);
   const [deleteCategory, deleteCategoryStatus] = useDeleteCategoryMutation();
 
   const { enqueueSnackbar } = useSnackbar();
@@ -51,6 +51,10 @@ export const CategoryList = () => {
       enqueueSnackbar("Category not deleted!", { variant: "error" });
     }
   }, [deleteCategoryStatus, enqueueSnackbar]);
+
+  if (error) {
+    return <Typography>Error fetching categories</Typography>;
+  }
 
   return (
     <Box maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
